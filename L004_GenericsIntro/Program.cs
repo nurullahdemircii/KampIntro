@@ -6,7 +6,13 @@ namespace L004_GenericsIntro
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            MyList<string> isimler = new MyList<string>();
+            isimler.Add("Nurullah");
+            isimler.Add("Fatih");
+            isimler.Add("Engin");
+            isimler.Print();
+
+            Console.ReadLine();
         }
     }
 }
