@@ -1,0 +1,38 @@
+->	INTERFACES
+	-> Ýnterface'ler soyut classlardýr.
+	-> interface'ler sablon olarak kullanýlýr ve implemente edilir.
+	-> interface oluþturup bir class'a miras olarak tanýmlanýrken, hata gösterecektir. Bu yüzden ampül üzerinden implement interface seçilmelidir ya da manuel implement edilmelidir.
+	-> interface'ler new'lenemez!
+
+->	interface = þablon
+	class = özellik sýnýflarý
+	manager = sýnýflarýn metodlarýnýn tanýmlanmasý
+	interface ve classlar referans tutuculardýr.
+
+->	Generics = Type = Tip
+	-> Generic olarak tanýmlý metod veya deðiþkenlere classlar veya interfaceler tanýmlanabilir.
+
+->	SOLID - Programlama Kurallarý
+	I = Interface Segregation
+
+->	Class'lar somuttur. 
+	-> Miras alan class'ýn bir tane parent class'ý olabilirken, interface'de birden fazla miras alýnabilir.
+	-> ayný class ayný anda 1 tane parent class ve birden fazla interface miras alabilir.
+
+->	interface	=> implement
+	class		=> inheritance
+
+->	Abstract(Soyut) Classes
+	-> Interface gibi kullanýlabilecek sýnýflardýr.
+	-> Soyut sýnýflar türemiþ sýnýf oluþturmak için kullanýlýr.
+	-> Soyut sýnýf içerisinde metot hem tanýmlanabilir hem de metot bildirimi yapýlabilir.
+	-> Soyut sýnýf içerisinde metot bildirimi yapýlýrken `abstract` anahtar kelimesi kullanýlýr.
+	-> public abstract void MethodName();
+	-> Soyut sýnýfta bildirimi yapýlan bir method türetilmiþ sýnýfta tanýmlanmak istendiðinde `override` anahtar kelimesi kullanýlýr.
+	-> public override void MethodName(){ // ... }
+	-> Soyut Sýnýflarýn Normal Sýnýflardan Farký: 
+		-> Normal sýnýflar içerisinde method bildirimi yapýlamaz.
+		-> Bildirimi yapýlan metotlar, Abstract sýnýftan türeyen sýnýflar içerisinde tanýmlanmak zorundadýr.
+		-> Bir sýnýfa sadece bir tane Abstract sýnýf inherit edilebilir ancak ayný sýnýfa birden fazla arayüz implement edilebilir.
+
+-> 
