@@ -6,6 +6,7 @@ namespace KampIntro
     {
         static void Main(string[] args)
         {
+            
             // Type safety - Tip güvenliği
             // Do not repeat yourself - Kendini tekrarlama
             // Değer tutucu, alias
