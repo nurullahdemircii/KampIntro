@@ -30,7 +30,6 @@ namespace L005_OOP3
             Console.WriteLine("GitHub Değişiklikleri Push Kontrolü");
 
             Console.ReadLine();
-            //
         }
     }
 }
