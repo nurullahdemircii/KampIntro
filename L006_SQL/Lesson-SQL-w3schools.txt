@@ -1,0 +1,409 @@
+-> 	SELECT
+	->	SYNTAX - SELECT column1, column2, ...
+		FROM table_name;
+
+		->	Burada sütun1, sütun2, ... veri seçmek istediğiniz tablonun alan adlarıdır. Tabloda bulunan tüm alanları seçmek istiyorsanız, aşağıdaki sözdizimini kullanın
+
+-> 	SELECT DISTINCT
+	-> 	SYNTAX - SELECT DISTINCT column1, column2, ...
+		FROM table_name;
+		-> 	Bir tablonun içinde, bir sütun genellikle birçok yinelenen değer içerir; ve bazen yalnızca farklı (farklı) değerleri listelemek istersiniz.
+
+-> 	WHERE
+	-> 	WHERE yan tümcesi kayıtları filtrelemek için kullanılır.
+	-> 	SYNTAX - SELECT column1, column2, ...
+	FROM table_name
+	WHERE condition;
+		-> 	WHERE yan tümcesi, yalnızca belirli bir koşulu karşılayan kayıtları ayıklamak için kullanılır.
+
+-> 	AND, OR ve NOT Operatörleri
+	-> 	WHERE yan tümcesi AND, OR ve NOT operatörleriyle birleştirilebilir.
+	-> 	AND Syntax
+		->	SYNTAX - SELECT column1, column2, ...
+		FROM table_name
+		WHERE condition1 AND condition2 AND condition3 ...;
+		->	AND operatörü, AND ile ayrılan tüm koşullar DOĞRU ise bir kayıt görüntüler.
+	-> 	OR Syntax
+		-> 	SYNTAX - SELECT column1, column2, ...
+		FROM table_name
+		WHERE condition1 OR condition2 OR condition3 ...;
+		-> 	OR operatörü, OR ile ayrılan koşullardan herhangi biri DOĞRU ise bir kayıt görüntüler.
+	->	NOT Syntax
+		->	SYNTAX - SELECT column1, column2, ...
+		FROM table_name
+		WHERE NOT condition;
+		-> 	NOT operatörü, koşul (lar) DOĞRU DEĞİL ise bir kayıt görüntüler.
+
+-> 	ORDER BY
+	->	Sonuç kümesini artan veya azalan düzende sıralamak için kullanılır.
+	-> 	SYNTAX - SELECT column1, column2, ...
+	FROM table_name
+	ORDER BY column1, column2, ... ASC|DESC;
+	-> 	Kayıtları varsayılan olarak artan sırada sıralar. Kayıtları azalan sırada sıralamak için DESC anahtar sözcüğünü kullanın.
+
+-> 	INSERT INTO
+	->	INSERT INTO deyimi, bir tabloya yeni kayıtlar eklemek için kullanılır.
+	->	SYNTAX - INSERT INTO table_name (column1, column2, column3, ...)
+	VALUES (value1, value2, value3, ...);
+		-> 	Hem sütun adlarını hem de eklenecek değerleri belirtir.
+	-> 	INSERT INTO table_name
+	VALUES (value1, value2, value3, ...);
+		-> 	Tablonun tüm sütunları için değerler ekliyorsanız, SQL sorgusunda sütun adlarını belirtmeniz gerekmez. Ancak, değerlerin sırasının tablodaki sütunlarla aynı sırada olduğundan emin olun. INSERT INTO sözdizimi aşağıdaki gibi olacaktır:
+
+-> 	NULL
+	-> 	NULL değeri olan bir alan, değeri olmayan bir alandır.
+	-> 	Tablodaki bir alan isteğe bağlıysa, bu alana bir değer eklemeden yeni bir kayıt eklemek veya bir kaydı güncellemek mümkündür. Ardından alan, NULL değeriyle kaydedilecektir.
+	-> 	Not: NULL değeri, sıfır değerinden veya boşluk içeren bir alandan farklıdır. NULL değeri olan bir alan, kayıt oluşturma sırasında boş bırakılan alandır!
+	-> 	SYNTAX - SELECT column_names
+	FROM table_name
+	WHERE column_name IS NULL;
+	->	SYNTAX - SELECT column_names
+	FROM table_name
+	WHERE column_name IS NOT NULL; 	
+
+-> 	UPDATE
+	->	UPDATE deyimi, bir tablodaki mevcut kayıtları değiştirmek için kullanılır.
+	->	SYNTAX - UPDATE table_name
+	SET column1 = value1, column2 = value2, ...
+	WHERE condition;
+	-> 	Not: Bir tablodaki kayıtları güncellerken dikkatli olun! UPDATE ifadesindeki WHERE yan tümcesine dikkat edin. WHERE yan tümcesi hangi kayıtların güncellenmesi gerektiğini belirtir. WHERE yan tümcesini atlarsanız, tablodaki tüm kayıtlar güncellenecektir!
+
+-> 	DELETE
+	-> 	DELETE deyimi, bir tablodaki mevcut kayıtları silmek için kullanılır.
+	->	SYNTAX - DELETE FROM table_name WHERE condition;
+	->	Not: Bir tablodaki kayıtları silerken dikkatli olun! DELETE deyimindeki WHERE yan tümcesine dikkat edin. WHERE yan tümcesi, hangi kayıtların silinmesi gerektiğini belirtir. WHERE yan tümcesini atlarsanız, tablodaki tüm kayıtlar silinecektir!
+
+-> 	FUNCTIONS
+	-> 	Not: Tüm veritabanı sistemleri SELECT TOP yan tümcesini desteklemez. MySQL, sınırlı sayıda kayıt seçmek için LIMIT yan tümcesini desteklerken, Oracle ROWNUM kullanır.
+	-> 	TOP
+		-> 	SELECT TOP yan tümcesi, döndürülecek kayıtların sayısını belirtmek için kullanılır.
+		-> 	SYNTAX - SELECT TOP number|percent column_name(s)
+		FROM table_name
+		WHERE condition;
+	-> 	LIMIT
+		-> 	SYNTAX - SELECT column_name(s)
+		FROM table_name
+		WHERE condition
+		LIMIT number;
+	-> 	ROWNUM
+		-> 	SYNTAX - SELECT column_name(s)
+		FROM table_name
+		WHERE ROWNUM <= number;
+	-> 	ÖR: SQL ifadesi, "Müşteriler" tablosundaki ilk üç kaydı seçer.
+		-> 	SELECT TOP 3 * FROM Customers;
+		->	SELECT * FROM Customers LIMIT 3;
+		->	SELECT * FROM Customers WHERE ROWNUM <= 3;
+	->	MIN() & MAX()
+		->	MIN () işlevi, seçilen sütunun en küçük değerini döndürür.
+		MAX () işlevi, seçilen sütunun en büyük değerini döndürür.
+		-> 	SYNTAX - SELECT MIN(column_name) FROM table_name WHERE condition;
+		-> 	SYNTAX - SELECT MAX(column_name) FROM table_name WHERE condition;
+	->	COUNT(), AVG() ve SUM()
+		-> COUNT() işlevi, belirli bir ölçütle eşleşen satırların sayısını döndürür.
+		->	AVG() işlevi, sayısal bir sütunun ortalama değerini döndürür.
+		->	SUM() işlevi, bir sayısal sütunun toplam toplamını döndürür.
+		-> 	SYNTAX - SELECT COUNT(column_name) FROM table_name WHERE condition;
+		-> 	SYNTAX - SELECT AVG(column_name) FROM table_name WHERE condition;
+		-> 	SYNTAX - SELECT SUM(column_name) FROM table_name WHERE condition;
+
+-> 	LIKE
+	-> 	LIKE operatörü, bir sütundaki belirli bir modeli aramak için bir WHERE yan tümcesinde kullanılır.
+	->	Genellikle LIKE işleci ile birlikte kullanılan iki Wildcards(Joker) karakter vardır.
+		->	% - Yüzde işareti sıfır, bir veya birden çok karakteri temsil eder.
+		->	_ - Alt çizgi tek bir karakteri temsil eder.
+	->	SYNTAX
+	SELECT column1, column2, ...
+	FROM table_name
+	WHERE columnN LIKE pattern;
+	->	Note: MS Access uses an asterisk (*) instead of the percent sign (%), and a question mark (?) instead of the underscore (_).
+
+-> 	WILDCARDS
+	-> 	Bir dizedeki bir veya daha fazla karakteri değiştirmek için bir Wildcards karakter kullanılır.
+	-> 	Wildcards karakterler, LIKE işleci ile kullanılır . LIKE operatörü, bir sütundaki belirli bir deseni aramak için bir WHERE yan tümcesinde kullanılır.
+	-> 	Wildcards for MS Access
+	->	* 	: 0 veya çok karakter.
+	->	? 	: Tek Karakter.
+	->	[] 	: Parantez içindeki herhangi bir karakter.
+	->	! 	: Parantez içinde olmayan herhangi bir karakter.
+	->	- 	: Bir dizi karakter.
+	->	# 	: Herhangi bir tek sayısal karakter.
+	-> 	Wildcards for SQL Server
+	->	% 	: 0 veya çok karakter.
+	->	_ 	: Tek Karakter.
+	->	[] 	: Parantez içindeki herhangi bir karakter.
+	->	^ 	: Parantez içinde olmayan herhangi bir karakter.
+	->	- 	: Bir dizi karakter.
+	->	SYNTAX - SELECT column1, column2, ... FROM table_name WHERE columnN LIKE WildcardsPattern;
+
+-> 	IN
+	-> 	IN operatörü, bir WHERE yan tümcesinde birden çok değer belirtmenize izin verir.
+	->	IN operatörü, birden çok OR koşulu için bir kısaltmadır.
+	->	SYNTAX1 - SELECT column_name(s) FROM table_name WHERE column_name IN (value1, value2, ...);
+	->	SYNTAX2 - SELECT column_name(s) FROM table_name WHERE column_name IN (SELECT STATEMENT);
+
+-> 	BETWEEN
+	-> 	BETWEEN operatörü, belirli bir aralıktaki değerleri seçer. Değerler sayılar, metin veya tarihler olabilir.
+	->	BETWEEN operatörü kapsayıcıdır: başlangıç ​​ve bitiş değerleri dahildir. 
+	->	SYNTAX - SELECT column_name(s) FROM table_name WHERE column_name BETWEEN value1 AND value2;
+
+-> 	Aliases(Takma Adlar)
+	-> 	SQL takma adları bir tabloya veya bir tablodaki bir sütuna geçici bir ad vermek için kullanılır.
+	->	Takma adlar genellikle sütun adlarını daha okunaklı hale getirmek için kullanılır.
+	->	Bir takma ad yalnızca sorgu süresi boyunca mevcuttur.
+	->	SYNTAX - SELECT column_name AS alias_name FROM table_name;
+	-> 	SYNTAX - SELECT column_name(s) FROM table_name AS alias_name;
+
+-> 	JOINS
+	-> 	Bir JOIN yan tümcesi, iki veya daha fazla tablodan satırları aralarındaki ilgili bir sütuna göre birleştirmek için kullanılır.
+	-> 	ÖR: SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
+	FROM Orders
+	INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
+	->	(INNER) JOIN : Her iki tabloda da eşleşen değerlere sahip kayıtları döndürür.
+		->	SYNTAX
+		SELECT column_name(s)
+		FROM table1
+		INNER JOIN table2
+		ON table1.column_name = table2.column_name;
+		-> 	ÖR : 
+		SELECT Orders.OrderID, Customers.CustomerName, Shippers.ShipperName
+		FROM ((Orders
+		INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID)
+		INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID);
+
+	->	LEFT (OUTER) JOIN : Soldaki tablodan tüm kayıtları ve sağ tablodan eşleşen kayıtları döndürür.
+		-> 	SYNTAX
+		SELECT column_name(s)
+		FROM table1
+		LEFT JOIN table2
+		ON table1.column_name = table2.column_name;
+		-> 	Not: Bazı veritabanlarında LEFT JOIN, LEFT OUTER JOIN olarak adlandırılır.
+		-> 	Not: LEFT JOIN anahtar sözcüğü, sağ tabloda (Siparişler) eşleşme olmasa bile, soldaki tablodaki (Müşteriler) tüm kayıtları döndürür.
+
+	->	RIGHT (OUTER) JOIN : Sağ tablodan tüm kayıtları ve soldaki tablodan eşleşen kayıtları döndürür.
+		-> 	SYNTAX
+		SELECT column_name(s)
+		FROM table1
+		RIGHT JOIN table2
+		ON table1.column_name = table2.column_name;
+		->	Not: Bazı veritabanlarında RIGHT JOIN, RIGHT OUTER JOIN olarak adlandırılır.
+		-> 	Not: RIGHT JOIN anahtar sözcüğü, soldaki tabloda (Siparişler) eşleşme olmasa bile, sağ tablodaki (Çalışanlar) tüm kayıtları döndürür.
+
+	->	FULL (OUTER) JOIN : Sol veya sağ tabloda bir eşleşme olduğunda tüm kayıtları döndürür.
+		-> 	SYNTAX
+		SELECT column_name(s)
+		FROM table1
+		FULL OUTER JOIN table2
+		ON table1.column_name = table2.column_name
+		WHERE condition;
+		->	Not: FULL OUTER JOIN, potansiyel olarak çok büyük sonuç kümeleri döndürebilir!
+		İpucu: FULL OUTER JOIN ve FULL JOIN aynıdır.
+		-> 	Not: FULL OUTER JOIN anahtar sözcüğü, diğer tablo eşleşsin ya da eşleşmesin her iki tablodaki tüm eşleşen kayıtları döndürür. Dolayısıyla, "Müşteriler" de "Siparişler" içinde eşleşmeyen satırlar varsa veya "Siparişler" içinde "Müşteriler" de eşleşmeyen satırlar varsa, bu satırlar da listelenecektir.
+
+-> 	Self JOIN
+	-> 	Kendi kendine BİRLEŞTİRME normal bir birleştirmedir, ancak tablo kendisiyle birleştirilir.
+	->	SELECT column_name(s)
+	FROM table1 T1, table1 T2
+	WHERE condition;
+
+-> 	UNION
+	-> 	UNION operatörü, iki veya daha fazla SELECT deyiminin sonuç kümesini birleştirmek için kullanılır.
+	->	UNION içindeki her SELECT ifadesi aynı sayıda sütuna sahip olmalıdır.
+	->	Sütunlar da benzer veri türlerine sahip olmalıdır.
+	->	Her bir SELECT ifadesindeki sütunlar da aynı sırada olmalıdır.
+	-> 	SYNTAX
+	SELECT column_name(s) FROM table1
+	UNION
+	SELECT column_name(s) FROM table2;
+	->	UNION operatörü varsayılan olarak yalnızca farklı değerleri seçer. Yinelenen değerlere izin vermek için UNION ALL kullanın:
+		->	SYNTAX
+		SELECT column_name(s) FROM table1
+		UNION ALL
+		SELECT column_name(s) FROM table2;
+		->	Not: Sonuç kümesindeki sütun adları genellikle UNION'daki ilk SELECT ifadesindeki sütun adlarına eşittir.
+
+-> 	GROUP BY
+	->	GROUP BY ifadesi, "her ülkedeki müşteri sayısını bulun" gibi aynı değerlere sahip satırları özet satırlarda gruplandırır.
+	-> 	GROUP BY deyimi, sonuç kümesini bir veya daha fazla sütuna göre gruplamak için genellikle toplama işlevleriyle (COUNT, MAX, MIN, SUM, AVG) kullanılır.
+	-> 	SYNTAX
+	SELECT column_name(s)
+	FROM table_name
+	WHERE condition
+	GROUP BY column_name(s)
+	ORDER BY column_name(s);
+
+-> 	HAVING Clause
+	-> 	WHERE anahtar sözcüğü toplama işlevleriyle kullanılamadığından HAVING yan tümcesi SQL'e eklenmiştir.
+	-> 	SYNTAX
+	SELECT column_name(s)
+	FROM table_name
+	WHERE condition
+	GROUP BY column_name(s)
+	HAVING condition
+	ORDER BY column_name(s);
+	-> 	ÖR : Aşağıdaki SQL ifadesi, her ülkedeki müşteri sayısını yüksekten düşüğe doğru sıralanmış olarak listeler (Yalnızca 5'ten fazla müşterisi olan ülkeleri içerir):
+	SELECT COUNT(CustomerID), Country
+	FROM Customers
+	GROUP BY Country
+	HAVING COUNT(CustomerID) > 5
+	ORDER BY COUNT(CustomerID) DESC
+
+-> 	EXISTS
+	-> 	EXISTS operatörü, bir alt sorgudaki herhangi bir kaydın varlığını test etmek için kullanılır.
+	-> 	EXISTS operatörü, alt sorgu bir veya daha fazla kayıt döndürürse doğru değerini döndürür.
+	-> 	SYNTAX
+	SELECT column_name(s)
+	FROM table_name
+	WHERE EXISTS
+	(SELECT column_name FROM table_name WHERE condition);
+
+-> 	ANY & ALL
+	-> 	ANY ve ALL operatörleri bir WHERE veya HAVING yan tümcesi ile kullanılır.
+	-> 	ANY operatörü, alt sorgu değerlerinden herhangi biri koşulu karşılıyorsa true değerini döndürür.
+	-> 	Tüm alt sorgu değerleri koşulu karşılıyorsa ALL operatörü true döndürür.
+	-> 	ANY SYNTAX
+	SELECT column_name(s)
+	FROM table_name
+	WHERE column_name operator ANY
+	(SELECT column_name FROM table_name WHERE condition);
+	-> 	ALL SYNTAX
+	SELECT column_name(s)
+	FROM table_name
+	WHERE column_name operator ALL
+	(SELECT column_name FROM table_name WHERE condition);
+	-> 	Not: Operatör standart karşılaştırma operatörü olmalıdır (=, <>, =,>,> =, <, ya <=!).
+	-> 	ÖR: Aşağıdaki SQL deyimi TRUE değerini döndürür ve OrderDetails tablosunda 99'dan fazla miktara sahip HERHANGİ bir kayıt bulursa ürün adlarını listeler:
+	-> 	SELECT ProductName
+	FROM Products
+	WHERE ProductID = ANY (SELECT ProductID FROM OrderDetails WHERE Quantity > 99);
+
+-> 	SELECT INTO
+	-> 	Tüm sütunları yeni bir tabloya kopyalayın
+	-> 	SYNTAX
+	SELECT *
+	INTO newtable [IN externaldb]
+	FROM oldtable
+	WHERE condition;
+	-> 	Yalnızca bazı sütunları yeni bir tabloya kopyalayın.
+	-> 	SYNTAX
+	SELECT column1, column2, column3, ...
+	INTO newtable [IN externaldb]
+	FROM oldtable
+	WHERE condition;
+
+-> 	INSERT INTO SELECT
+	-> 	Bir tablodaki verileri kopyalar ve başka bir tabloya ekler.
+	-> 	INSERT INTO SELECT, kaynak ve hedef tablolardaki veri türlerinin eşleşmesini gerektirir.
+	-> 	Hedef tablodaki mevcut kayıtlar etkilenmez.
+	-> 	Tüm sütunları bir tablodan başka bir tabloya kopyalayın:
+	-> 	SYNTAX
+	INSERT INTO table2
+	SELECT * FROM table1
+	WHERE condition;
+	-> 	Bir tablodan yalnızca bazı sütunları başka bir tabloya kopyalayın:
+	-> 	SYNTAX
+	INSERT INTO table2 (column1, column2, column3, ...)
+	SELECT column1, column2, column3, ...
+	FROM table1
+	WHERE condition;
+
+-> 	CASE
+	-> 	CASE ifadesi koşullardan geçer ve ilk koşul karşılandığında bir değer döndürür (IF-THEN-ELSE ifadesi gibi). Dolayısıyla, bir koşul doğru olduğunda, okumayı durdurur ve sonucu döndürür. Hiçbir koşul doğru değilse, ELSE yan tümcesindeki değeri döndürür.
+	-> 	ELSE bölümü yoksa ve hiçbir koşul doğru değilse, NULL döndürür.
+	-> 	SYNTAX
+	CASE
+	    WHEN condition1 THEN result1
+	    WHEN condition2 THEN result2
+	    WHEN conditionN THEN resultN
+	    ELSE result
+	END;
+	-> 	Example
+	SELECT OrderID, Quantity,
+	CASE
+	    WHEN Quantity > 30 THEN 'The quantity is greater than 30'
+	    WHEN Quantity = 30 THEN 'The quantity is 30'
+	    ELSE 'The quantity is under 30'
+	END AS QuantityText
+	FROM OrderDetails;
+
+-> 	NULL Functions
+	-> 	IFNULL ()
+	-> 	MySQL IFNULL () işlevi, bir ifade NULL ise alternatif bir değer döndürmenizi sağlar:
+	SELECT ProductName, UnitPrice * (UnitsInStock + IFNULL(UnitsOnOrder, 0))
+	FROM Products;
+	-> 	veya COALESCE () işlevini şu şekilde kullanabiliriz :
+	-> 	SELECT ProductName, UnitPrice * (UnitsInStock + COALESCE(UnitsOnOrder, 0))
+	FROM Products;
+	->  SQL Server ISNULL (): bir ifade NULL olduğunda alternatif bir değer döndürmenizi sağlar.
+	-> 	MS Access IsNull (): fade boş bir değer ise DOĞRU (-1) döndürür, aksi takdirde YANLIŞ (0).
+	-> 	Oracle NVL (): bir ifade NULL olduğunda alternatif bir değer döndürmenizi sağlar.
+
+-> 	Stored Procedures for SQL Server
+	-> 	Depolanan yordam, kaydedebileceğiniz hazırlanmış bir SQL kodudur, böylece kod tekrar tekrar kullanılabilir.
+	-> 	Dolayısıyla, defalarca yazdığınız bir SQL sorgunuz varsa, bunu bir saklı yordam olarak kaydedin ve ardından yürütmek için çağırın.
+	-> 	Ayrıca, saklı yordamın geçirilen parametre değerlerine göre hareket edebilmesi için parametreleri bir saklı yordama da iletebilirsiniz.
+	-> 	SYNTAX
+		CREATE PROCEDURE procedure_name
+		AS
+		sql_statement
+		GO;
+		-> 	Execute: EXEC procedure_name;
+	-> 	Example:
+		CREATE PROCEDURE SelectAllCustomers
+		AS
+		SELECT * FROM Customers
+		GO;
+		->	Execute:	EXEC SelectAllCustomers;
+	-> 	Example: Tek Parametreli Fonksiyon
+		CREATE PROCEDURE SelectAllCustomers @City nvarchar(30)
+		AS
+		SELECT * FROM Customers WHERE City = @City
+		GO;
+		->	Execute:	EXEC SelectAllCustomers @City = 'London';
+	-> 	Example: Çok parametreli Fonksiyon
+		CREATE PROCEDURE SelectAllCustomers @City nvarchar(30), @PostalCode nvarchar(10)
+		AS
+		SELECT * FROM Customers WHERE City = @City AND PostalCode = @PostalCode
+		GO;
+		->	Execute:	EXEC SelectAllCustomers @City = 'London', @PostalCode = 'WA1 1DP';
+
+-> 	SQL Comments
+	-> 	Yorumlar, SQL ifadelerinin bölümlerini açıklamak veya SQL ifadelerinin yürütülmesini önlemek için kullanılır.
+	-> 	Not: Bu bölümdeki örnekler Firefox ve Microsoft Edge'de çalışmayacaktır!
+	-> 	Microsoft Access veritabanlarında yorumlar desteklenmez. Firefox ve Microsoft Edge, örneklerimizde Microsoft Access veritabanını kullanıyor.
+	-> 	Tek satır açıklamalar - ile başlar.
+	-> 	Çok satırlı yorumlar / * ile başlar ve * / ile biter.
+
+-> 	SQL Operators
+	-> 	+		: Toplama
+	-> 	-		: Çıkarma
+	-> 	*		: Çarpma
+	-> 	/		: Bölme
+	-> 	%		: Mod Alma
+	-> 	&		: AND
+	-> 	| 		: OR
+	-> 	^		: Özel OR
+	-> 	=		: Eşit
+	-> 	>		: Büyük
+	-> 	<		: Küçük
+	-> 	>= 		: Büyük Eşit
+	-> 	<=		: Küçük Eşit
+	-> 	<> 		: Eşit Değil
+	-> 	SOME 	: Alt sorgu değerlerinden herhangi biri koşulu karşılıyorsa DOĞRU 
+	-> 	EXIST 	: Alt sorgu bir veya daha fazla kayıt döndürürse DOĞRU
+	-> 	
+	-> 	
+	-> 	
+	-> 	
+	-> 	
+	-> 	
+	-> 	
+	-> 	
+	-> 	
+	-> 	
+	-> 	
+	-> 	
+	-> 	
+	-> 	
+	-> 	
+	-> 	
+
